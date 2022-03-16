@@ -27,7 +27,7 @@
             />
             <label for="password">Password</label>
           </div>
-          <button @click="login" class="btn btn-lg btn-primary w-100 mt-3">
+          <button class="btn btn-lg btn-primary w-100 mt-3">
             登入
           </button>
         </form>
