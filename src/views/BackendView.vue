@@ -20,8 +20,13 @@
             <router-link class="nav-link" to="/">回首頁</router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/admin/products">產品列表</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/orders">訂單列表</router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" @click.prevent="logout" to="/">登出</router-link>
-            <!-- <a href="#" class="nav-link" @click.prevent="logout">登出</a> -->
           </li>
         </ul>
       </div>

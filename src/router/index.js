@@ -34,6 +34,11 @@ const routes = [
         name: 'BackendProducts',
         component: () => import('../views/BackendProducts.vue'),
       },
+      {
+        path: 'orders',
+        name: 'BackendOrders',
+        component: () => import('../views/BackendOrders.vue'),
+      },
     ],
   },
 
