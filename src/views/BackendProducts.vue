@@ -68,10 +68,10 @@
 </template>
 
 <script>
-import emitter from '@/utils/emitter';
-import pagination from '../components/pagination.vue';
+import emitter from '../utils/emitter';
+import pagination from '../components/Pagination.vue';
 import productModal from '../components/BackendProductModal.vue';
-import delProductModal from '../components/delProductModal.vue';
+import delProductModal from '../components/DelProductModal.vue';
 
 export default {
   data() {

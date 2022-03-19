@@ -174,7 +174,7 @@
 </template>
 
 <script>
-import delProductModal from '../components/delProductModal.vue';
+import delProductModal from '../components/DelProductModal.vue';
 
 export default {
   data() {

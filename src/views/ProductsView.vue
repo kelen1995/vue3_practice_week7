@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import productModal from '../components/productModal.vue';
-import pagination from '../components/pagination.vue';
+import productModal from '../components/ProductModal.vue';
+import pagination from '../components/Pagination.vue';
 
 export default {
   data() {
