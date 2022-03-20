@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import emitter from '../utils/emitter';
 import pagination from '../components/Pagination.vue';
 import productModal from '../components/BackendProductModal.vue';
@@ -124,7 +125,7 @@ export default {
       }
     },
     toggleProductModal() {
-      emitter.emit('openModal', this.tempProduct);// 觸發 openModal
+      emitter.emit('openModal', this.tempProduct); // 觸發 openModal
       this.$refs.productModal.toggleModal();
     },
     updateProduct(product = this.tempProduct) {
@@ -142,14 +143,14 @@ export default {
         data: product,
       })
         .then(() => {
-          alert(message);
+          Swal.fire(message);
           this.toggleProductModal();
           this.getProducts(this.pagination.current_page);
           this.tempProduct = { imagesUrl: [] };
         })
         .catch((err) => {
           console.log(err);
-          alert('產品新增失敗');
+          Swal.fire('產品新增失敗');
         });
     },
     deleteProduct() {
@@ -163,7 +164,8 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          alert('產品刪除失敗');
+          Swal.fire('產品刪除失敗');
+          this.toggleDelProductModal('hide');
         });
     },
     toggleDelProductModal(status) {

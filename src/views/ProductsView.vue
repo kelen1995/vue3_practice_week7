@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import ProductModal from '../components/ProductModal.vue';
 import Pagination from '../components/Pagination.vue';
 
@@ -152,57 +153,10 @@ export default {
           qty,
         },
       })
-        .then(() => {
-          this.hideProductModal();
-          this.getCarts();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    deleteCarts(status, cart) {
-      let url = '';
-      if (status === 'all') {
-        // 刪除全部購物車
-        url = `${this.apiUrl}/api/${this.apiPath}/carts/`;
-      } else if (status === 'single') {
-        url = `${this.apiUrl}/api/${this.apiPath}/cart/${cart.id}`; // 刪除一筆購物車商品
-      }
-      this.axios
-        .delete(url)
-        .then(() => {
-          this.hideDelProductModal();
-          this.getCarts();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    openDelProductModal(status, title, cart) {
-      this.$refs.delModal.openModal(status, title, cart);
-    },
-    hideDelProductModal() {
-      this.$refs.delModal.hideModal();
-    },
-    submitOrder() {
-      if (this.cart.carts.length < 1) {
-        // 若購物車沒有資料，不發出請求
-        alert('購物車目前沒有商品');
-        return;
-      }
-      const loader = this.$loading.show();
-
-      this.axios
-        .post(`${this.apiUrl}/api/${this.apiPath}/order`, {
-          data: { ...this.order },
-        })
         .then((res) => {
-          loader.hide();
-          const { message, total } = res.data;
-          alert(`${message}，總金額為 ${total}`);
-          this.$refs.form.resetForm();
-          this.order.message = '';
-          this.getCarts();
+          this.hideProductModal();
+          const { product } = res.data.data;
+          Swal.fire(`${product.title} ${qty} ${product.unit} 已加入購物車`);
         })
         .catch((err) => {
           console.log(err);
@@ -211,7 +165,6 @@ export default {
   },
   mounted() {
     this.getProducts();
-    this.getCarts();
   },
 };
 </script>

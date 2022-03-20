@@ -174,6 +174,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import delProductModal from '../components/DelProductModal.vue';
 
 export default {
@@ -269,7 +270,7 @@ export default {
         .then((res) => {
           loader.hide();
           const { message, total } = res.data;
-          alert(`${message}，總金額為 ${total}`);
+          Swal.fire(`${message}，總金額為 ${total}`);
           this.$refs.form.resetForm();
           this.order.message = '';
           this.getCarts();

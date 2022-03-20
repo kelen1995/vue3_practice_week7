@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
   data() {
     return {
@@ -51,7 +53,7 @@ export default {
     login() {
       // 檢查帳號/密碼是否有輸入
       if (!this.email || !this.password) {
-        alert('請輸入帳號密碼');
+        Swal.fire('請輸入帳號密碼');
         return;
       }
 
@@ -66,7 +68,7 @@ export default {
         })
         .catch((err) => {
           console.log(err.response);
-          alert(err.response.data.message);
+          Swal.fire(err.response.data.message);
           this.email = '';
           this.password = '';
         });
