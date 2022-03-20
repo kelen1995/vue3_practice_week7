@@ -37,13 +37,28 @@
             />
           </div>
         </td>
-        <td></td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-sm" @click="openOrderModal(order)">
+              檢視</button>
+            <button type="button" class="btn btn-outline-danger btn-sm"
+              >刪除</button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
+  <Pagination
+      :pagination="pagination"
+      @switch-page="getOrders"></Pagination>
+  <OrderModal ref="orderModal"></OrderModal>
 </template>
 
 <script>
+import Pagination from '../components/Pagination.vue';
+import OrderModal from '../components/OrderModal.vue';
+import dateFormat from '../utils/utility';
+
 export default {
   data() {
     return {
@@ -52,6 +67,10 @@ export default {
       orders: [],
       pagination: {},
     };
+  },
+  components: {
+    Pagination,
+    OrderModal,
   },
   methods: {
     getOrders(page = 1) {
@@ -83,16 +102,13 @@ export default {
         });
     },
     dateFormat(timestamp) {
-      // 將日期格式化為 YY/MM/DD
-      const date = new Date(timestamp * 1000);
-      return `${date.getFullYear()}/${this.zeroPadding(
-        date.getMonth() + 1,
-      )}/${this.zeroPadding(date.getDate())}`;
+      return dateFormat(timestamp);
     },
-    zeroPadding(num) {
-      // 為月份、日期補零
-      if (num < 10) return `0${num}`;
-      return num;
+    openOrderModal(order) {
+      this.$refs.orderModal.openModal(order);
+    },
+    deleteOrder(orderId) {
+      console.log(orderId);
     },
     checkUser() {
       // 檢查是否有登入 token

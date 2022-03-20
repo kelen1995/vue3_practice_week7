@@ -3,11 +3,11 @@
     <div class="container">
       <div class="mt-4">
         <!-- 產品Modal -->
-        <product-modal
+        <ProductModal
           :product="tempProduct"
           @add-carts="updateCarts"
           ref="productModal"
-        ></product-modal>
+        ></ProductModal>
 
         <table class="table align-middle">
           <thead>
@@ -63,18 +63,18 @@
             </tr>
           </tbody>
         </table>
-        <pagination
+        <Pagination
           :pagination="pagination"
           @switch-page="getProducts"
-        ></pagination>
+        ></Pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import productModal from '../components/ProductModal.vue';
-import pagination from '../components/Pagination.vue';
+import ProductModal from '../components/ProductModal.vue';
+import Pagination from '../components/Pagination.vue';
 
 export default {
   data() {
@@ -94,8 +94,8 @@ export default {
     };
   },
   components: {
-    productModal,
-    pagination,
+    ProductModal,
+    Pagination,
   },
   methods: {
     getProducts(page = 1) {
