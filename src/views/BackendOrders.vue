@@ -39,22 +39,31 @@
         </td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-sm" @click="openOrderModal(order)">
-              檢視</button>
-            <button type="button" class="btn btn-outline-danger btn-sm"
-              >刪除</button>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              @click="openOrderModal(order)"
+            >
+              檢視
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              @click="openDelOrderConfirm(order.id)"
+            >
+              刪除
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <Pagination
-      :pagination="pagination"
-      @switch-page="getOrders"></Pagination>
+  <Pagination :pagination="pagination" @switch-page="getOrders"></Pagination>
   <OrderModal ref="orderModal"></OrderModal>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import Pagination from '../components/Pagination.vue';
 import OrderModal from '../components/OrderModal.vue';
 import dateFormat from '../utils/utility';
@@ -107,8 +116,37 @@ export default {
     openOrderModal(order) {
       this.$refs.orderModal.openModal(order);
     },
+    openDelOrderConfirm(orderId) {
+      // 開啟確認刪除訂單的視窗
+      Swal.fire({
+        title: '是否要刪除訂單?',
+        showCancelButton: true,
+        confirmButtonText: '確認刪除',
+        cancelButtonText: '取消',
+        reverseButtons: true,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.deleteOrder(orderId);
+        }
+      });
+    },
     deleteOrder(orderId) {
+      // 刪除單筆訂單
       console.log(orderId);
+      const url = `${this.apiUrl}/api/${this.apiPath}/admin/order/${orderId}`;
+      this.axios
+        .delete(url)
+        .then((res) => {
+          const status = res.data.success;
+          if (status) {
+            Swal.fire('已刪除訂單');
+            this.getOrders();
+          }
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
     },
     checkUser() {
       // 檢查是否有登入 token
