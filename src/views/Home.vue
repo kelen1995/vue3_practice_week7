@@ -17,13 +17,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" to="/products">產品列表</router-link>
+            <router-link class="nav-link" to="/products" @click="hideCollapse"
+              >產品列表</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/cart">購物車</router-link>
+            <router-link class="nav-link" to="/cart" @click="hideCollapse"
+              >購物車</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/products">後台登入</router-link>
+            <router-link class="nav-link" to="/admin/products"
+              >後台登入</router-link
+            >
           </li>
         </ul>
       </div>
@@ -33,9 +39,21 @@
 </template>
 
 <script>
+import { Collapse } from 'bootstrap';
+
 export default {
   name: 'Home',
   components: {},
+  methods: {
+    hideCollapse() {
+      // 點了 router-link 時，將 collapse 收起來
+      const myCollapse = document.getElementById('navbarSupportedContent');
+      const bsCollapse = new Collapse(myCollapse, {
+        toggle: false,
+      });
+      bsCollapse.hide();
+    },
+  },
   mounted() {},
 };
 </script>
