@@ -3,6 +3,9 @@
 </template>
 
 <style lang="scss">
-// @import 'bootstrap';
 @import './assets/stylesheet/all';
+
+#app {
+  text-align: center;
+}
 </style>
